@@ -1,0 +1,66 @@
+# Edge Detection Configuration
+model:
+  model_type: edge_detection
+  in_channels: 3
+  out_channels: 1
+  image_size: [256, 256]
+  gan_mode: lsgan
+
+training:
+  batch_size: 16
+  num_epochs: 1
+  learning_rate: 0.0002
+  beta1: 0.5
+  beta2: 0.999
+  lr_scheduler: linear
+  lr_decay_epochs: [100, 150]
+  lr_decay_factor: 0.5
+  gradient_clip_val: 1.0
+  use_ema: false
+  ema_decay: 0.999
+  save_every_n_epochs: 1
+  save_best_model: true
+  early_stopping_patience: 20
+
+data:
+  dataset_type: synthetic
+  data_dir: data
+  image_dir: images
+  sketch_dir: sketches
+  use_augmentation: false
+  horizontal_flip_prob: 0.5
+  rotation_prob: 0.3
+  brightness_contrast_prob: 0.3
+  noise_prob: 0.2
+  num_workers: 4
+  pin_memory: true
+  shuffle_train: true
+  synthetic_num_samples: 1000
+
+evaluation:
+  eval_every_n_epochs: 1
+  num_eval_samples: 100
+  calculate_fid: true
+  calculate_lpips: true
+  calculate_edge_consistency: true
+  calculate_sketch_quality: true
+  save_samples: true
+  num_sample_images: 8
+
+logging:
+  log_dir: logs
+  use_tensorboard: true
+  use_wandb: false
+  wandb_project: sketch-generation
+  log_every_n_steps: 100
+  log_images_every_n_epochs: 1
+
+# General settings
+device: auto
+seed: 42
+deterministic: true
+
+# Paths
+output_dir: outputs
+checkpoint_dir: checkpoints
+sample_dir: samples
